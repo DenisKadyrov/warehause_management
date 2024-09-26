@@ -88,10 +88,11 @@ async def create(
     
 
     session.add_all(order_items_list)
-    await session.flush()
+    await session.commit()
     await session.refresh(order)
 
     new = await read_by_id(session=session, order_id=order.id)
+    
 
     return new
 

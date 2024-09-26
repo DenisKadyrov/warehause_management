@@ -27,7 +27,7 @@ DBSessionDep = Annotated[AsyncSession, Depends(get_db_session)]
 async def create_product(
     session: DBSessionDep,
     product_in: CreateProductRequest,
-) -> CreateProductResponse:
+):
     try:
         product = await product_crud.create_product(session=session, product_in=product_in)
     except:
@@ -35,7 +35,7 @@ async def create_product(
     return product
 
 @router.get("/")
-async def get_products(session: DBSessionDep) -> ReadAllProductsResponse:
+async def get_products(session: DBSessionDep):
     try:
         return ReadAllProductsResponse(products=[p async for p in product_crud.get_all_products(session=session)])
     except:
@@ -46,7 +46,7 @@ async def get_products(session: DBSessionDep) -> ReadAllProductsResponse:
 async def get_product(
     session: DBSessionDep,
     id: int,
-) -> ReadProductResponse:
+):
     try:
         product = await product_crud.get_product_by_id(session=session, product_id=id)
     except:
@@ -58,7 +58,7 @@ async def update_product(
     session: DBSessionDep,
     id: int,
     update_product: UpdateProductRequest
-) -> UpdateProductResponse:
+):
     try:
         product = await product_crud.update_product(
             session=session, 
