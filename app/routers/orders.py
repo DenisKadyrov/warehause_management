@@ -24,7 +24,7 @@ DBSessionDep = Annotated[AsyncSession, Depends(get_db_session)]
 
 
 
-@router.post("/", response_model=CreateOrderResponse)
+@router.post("/", response_model=Annotated[CreateOrderResponse, dict])
 async def create_order(
     session: DBSessionDep,
     order_in: CreateOrderRequest,
@@ -36,14 +36,14 @@ async def create_order(
     return order
 
 @router.get("/")
-async def get_orders(session: DBSessionDep) -> ReadAllOrdersResponse:
+async def get_orders(session: DBSessionDep) -> Annotated[ReadAllOrdersResponse, dict]:
     try:
         return ReadAllOrdersResponse(orders=[p async for p in order_crud.get_all_orders(session=session)])
     except:
         return {"Filed": "Can't get orders"}
 
 
-@router.get("/{id}", response_model=ReadOrderResponse)
+@router.get("/{id}", response_model=Annotated[ReadOrderResponse, dict])
 async def get_order(
     session: DBSessionDep,
     id: int,
@@ -59,7 +59,7 @@ async def update_order(
     session: DBSessionDep,
     id: int,
     order_in: UpdateOrderRequest
-) -> UpdateOrderResponse:
+) -> Annotated[UpdateOrderResponse, dict]:
     try:
         order = await order_crud.update_order(
             session=session, 
