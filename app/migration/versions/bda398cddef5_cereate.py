@@ -1,8 +1,8 @@
-"""update 2
+"""cereate
 
-Revision ID: 212863dcff20
-Revises: 3137f5761708
-Create Date: 2024-09-25 04:21:42.304067
+Revision ID: bda398cddef5
+Revises: 
+Create Date: 2024-09-26 18:02:47.816102
 
 """
 from typing import Sequence, Union
@@ -12,8 +12,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '212863dcff20'
-down_revision: Union[str, None] = '3137f5761708'
+revision: str = 'bda398cddef5'
+down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 
@@ -23,7 +23,7 @@ def upgrade() -> None:
     op.create_table('orders',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=False),
-    sa.Column('status', sa.Enum('in_progress', 'shipped', 'delivered', name='orderstatus'), nullable=False),
+    sa.Column('status', sa.Enum('in_progress', 'sended', 'delivered', name='orderstatus'), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('products',
